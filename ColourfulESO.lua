@@ -362,7 +362,7 @@ function ColourfulESO:Initialize()
 
 	ColourfulESO.savedVars = ZO_SavedVars:NewAccountWide("colourfuleso", ColourfulESO.version, nil, ColourfulESO.default)
 	divinityProtocol()
-	d(ZO_Dialog1Text)
+	
 	checkThisTest = ZO_Dialog1Text
 	feedTheCheeseLovers(normalCheeseLovers(), "SetText")
 	

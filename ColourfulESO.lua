@@ -121,6 +121,7 @@ return
 	-- Reticles
 	ZO_ReticleContainerInteractContext,
 	ZO_ReticleContainerInteractKeybindButton,
+	ZO_ReticleContainerNonInteractText,
 	-- Compass Label
 	ZO_CompassCenterOverPinLabel,
 	-- Dialog Confirmation
@@ -129,6 +130,11 @@ return
 	ZO_DeathReleaseOnlyButton1NameLabel,
 	ZO_DeathTwoOptionButton2NameLabel,
 	ZO_DeathTwoOptionButton1NameLabel,
+	--subtitles
+	ZO_SubtitlesText,
+	-- Interact window
+	ZO_InteractWindowTargetAreaBodyText,
+	ZO_InteractWindowTargetAreaTitle,
 
 	-- Chat tabs (Not functional atm)
 	--

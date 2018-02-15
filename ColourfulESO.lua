@@ -95,7 +95,7 @@ end
 
 local function setupReplacement(object, functionName, positionOfText)
 	local original = object[functionName]
-
+	if object.GetName then d(object:GetName()) end
 	if positionOfText == 1 then
 		object[functionName] = function(self, text, ...)
 			local heisenbergsCheese = colouredStrings[text]
@@ -113,8 +113,10 @@ local function setupReplacement(object, functionName, positionOfText)
 	else
 	end
 end
+setupReplacement(InformationTooltip, "AddLine", 1)
 
-local cheeseLovers = 
+local function normalCheeseLovers()
+return 
 {
 	-- Reticles
 	ZO_ReticleContainerInteractContext,
@@ -147,6 +149,7 @@ local cheeseLovers =
 	ZO_PlayerProgressLevelType,
 	ZO_PlayerProgressChampionPoints,
 }
+end
 
 local function generateSkilledCheeseLovers()
 	local skilledCheeseLovers = 
@@ -179,7 +182,6 @@ local function generateAdventerousCheeseLovers()
 		ZO_QuestJournalTasksText,
 		ZO_QuestJournalOptionalStepTextLabel,
 		ZO_QuestJournalConditionTextOrLabel,
-
 	}
 	for i = 1, 25 do
 		adventerousCheeseLovers[#adventerousCheeseLovers + 1]= GetControl("ZO_QuestJournalNavigationContainerScrollChildZO_QuestJournalNavigationEntry"..i)
@@ -189,7 +191,7 @@ end
 
 ColourFails = {}
 
-local function feedTheCheeseLovers(appliedCheeseLover)
+local function feedTheCheeseLovers(appliedCheeseLover, functionName)
 	if type(appliedCheeseLover) ~="table" then
 		d("Non table passed")
 		return
@@ -197,7 +199,7 @@ local function feedTheCheeseLovers(appliedCheeseLover)
 	for i = 1, #appliedCheeseLover do
 		if appliedCheeseLover[i] and type(appliedCheeseLover[i]) == "userdata" then
 
-			setupReplacement(appliedCheeseLover[i], "SetText", 1)
+			setupReplacement(appliedCheeseLover[i], functionName, 1)
 			if appliedCheeseLover[i].GetText and appliedCheeseLover[i].SetText then
 				appliedCheeseLover[i]:SetText(appliedCheeseLover[i]:GetText() or "")
 			end
@@ -214,7 +216,7 @@ local function addCheeseLovingScene(scene, cheeseGenerator)
 	if type(cheeseGenerator) == "function" then
 		SCENE_MANAGER.scenes[scene]:RegisterCallback("StateChange", function() if not runOnce[scene] then 
 		runOnce[scene] = runOnce[scene] == false or runOnce[scene]
-		feedTheCheeseLovers(cheeseGenerator()) end end )
+		feedTheCheeseLovers(cheeseGenerator(), "SetText") end end )
 	end
 end
 addCheeseLovingScene("skills", generateSkilledCheeseLovers)
@@ -223,7 +225,7 @@ addCheeseLovingScene("questJournal",generateAdventerousCheeseLovers)
 scene = "questJournal"
 SCENE_MANAGER.scenes["questJournal"]:RegisterCallback("StateChange", function() if not runOnce['questJournal'] then 
 	runOnce['questJournal'] = runOnce['questJournal'] == false or runOnce['questJournal']
-	feedTheCheeseLovers(generateAdventerousCheeseLovers()) end end )
+	feedTheCheeseLovers(generateAdventerousCheeseLovers(), "SetText") end end )
 
 function ColourfulESO:RegisterCheeseLover(newCheeseLover, optionalFunctionName, optionalTextPosition)
 	if newCheeseLover == nil then d("Nil value") return end
@@ -360,18 +362,24 @@ function ColourfulESO:Initialize()
 
 	ColourfulESO.savedVars = ZO_SavedVars:NewAccountWide("colourfuleso", ColourfulESO.version, nil, ColourfulESO.default)
 	divinityProtocol()
-	feedTheCheeseLovers(cheeseLovers)
+	d(ZO_Dialog1Text)
+	checkThisTest = ZO_Dialog1Text
+	feedTheCheeseLovers(normalCheeseLovers(), "SetText")
 	
 end
+--feedTheCheeseLovers(normalCheeseLovers(), "SetText")
 
 --local function closeWindow () ColourfulESOWindow:SetHidden(not ColourfulESOWindow:IsHidden()) end
 
 
 function ColourfulESO.OnAddOnLoaded(event,initial)
 	if initial then
+		--ColourfulESO:Initialize()
+	end
+	if initial == ColourfulESO.name then
 		ColourfulESO:Initialize()
 	end
 
 end 
 
-EVENT_MANAGER:RegisterForEvent(ColourfulESO.name, EVENT_PLAYER_ACTIVATED, ColourfulESO.OnAddOnLoaded)
+EVENT_MANAGER:RegisterForEvent(ColourfulESO.name, EVENT_ADD_ON_LOADED, ColourfulESO.OnAddOnLoaded)

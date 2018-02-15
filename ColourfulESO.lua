@@ -95,7 +95,7 @@ end
 
 local function setupReplacement(object, functionName, positionOfText)
 	local original = object[functionName]
-	if object.GetName then d(object:GetName()) end
+	
 	if positionOfText == 1 then
 		object[functionName] = function(self, text, ...)
 			local heisenbergsCheese = colouredStrings[text]

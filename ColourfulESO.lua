@@ -61,9 +61,71 @@ local function GetNiceCheese()
 	end
 	return t
 end
+
+function testColour (cheeseYumminess)
+	local r, g, b = 0, 0 , 0
+	local a = math.random(1,3)
+	if a == 1 then
+		r = 255/cheeseYumminess
+	elseif a == 2 then
+		g = 255/cheeseYumminess
+	else
+		b = 255/cheeseYumminess
+	end
+	if math.random(1,2) == 1 then
+		if r ~= 0 then
+			g = math.random(0,255)/cheeseYumminess
+		else
+			r = math.random(0,255)/cheeseYumminess
+		end
+	else 
+		if g ~= 0 then
+			b = math.random(0,255)/cheeseYumminess
+		else
+			g = math.random(0,255)/cheeseYumminess
+		end
+	end
+
+	d(ZO_ColorDef:New(r,g,b):Colorize("text"))
+end
+
+function testMultColour(divide)
+	for i = 1, 30 do
+		testColour(divide)
+	end
+	d("___")
+end
+
+
+
 -- 0-360, 48-100, 40-71
 local function SheogorathsCheese()
 	
+	local cheeseYumminess = 325
+	--
+	local r, g, b = 0, 0 , 0
+	local a = math.random(1,3)
+	if a == 1 then
+		r = 255/cheeseYumminess
+	elseif a == 2 then
+		g = 255/cheeseYumminess
+	else
+		b = 255/cheeseYumminess
+	end
+	if math.random(1,2) == 1 then
+		if r ~=0 then
+			g = math.random(0,255)/cheeseYumminess
+		else
+			r = math.random(0,255)/cheeseYumminess
+		end
+	else 
+		if g ~=0 then
+			b = math.random(0,255)/cheeseYumminess
+		else
+			g = math.random(0,255)/cheeseYumminess
+		end
+	end
+			if true then return {r,g,b} end --]]
 
 	local t= {math.random(0,360),math.random(50,100),math.random(25,60)}
 	--local f = (t[1]%60)/60
@@ -88,7 +150,7 @@ local function SheogorathsCheese()
 	else
 		return {t[3],p,q}
 	end
-	return {r,g,b}
+
 
 end
 

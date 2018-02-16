@@ -4,10 +4,10 @@
 ; States and/or other countries. All rights reserved.
 ; You can read the full terms at https://account.elderscrollsonline.com/add-on-terms
 
-## Title: Colourful ESO
-## APIVersion: 100018
+## Title: Colourful ESO 2.1
+## APIVersion: 100022
 ## Author: Dolgubon
-## Version: 1
+## Version: 2.1
 ## SavedVariables: colourfuleso
 ## OptionalDependsOn: DolgubonsLazyWritCrafter pChat AddonSelector
 
